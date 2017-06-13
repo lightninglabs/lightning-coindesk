@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load filters %}
+
+{% block content %}
+  <div id="header" class="animated fadeInDown">
+    <div id="headerleft">
+      <a id="t_holder" href="/"></a>
+      <span class="headerlinks">
+        <a href="/" class="cur_url">Lightning CoinDesk</a>
+      </span>
+    </div>
+
+    <div id="headerright">
+      <span class="headerlinks">
+      {% if lnd_user is not None %}
+        <a href="/u/{{ lnd_user.username }}">{{ lnd_user.username }}</a>
+        <a href="/buy">
+          <span class="upvote"></span>
+          <div class="score">{{ profile.upvote_balance }}</div>
+        </a>
+      {% else %}
+        <a href="/admin">Login</a>
+      {% endif %}
+      </span>
+    </div>
+
+    <div class="clear"></div>
+  </div>
+
+  <div id="inside" class="animated fadeInDown delay">
+    <ol class="posts">
+    {% for payment in payments %}
+      <li class="payment">
+        <div class="post_line">
+          <div class="votes">
+            <a class="upvote" data-id="{{ payment.id }}"></a>
+            <div class="score">{{ payment.score }}</div>
+          </div>
+          <div class="details">
+            <span class="link">
+              <a href="{{ payment.link }}">{{ payment.title }}</a>
+            </span>
+            <span class="domain">
+              {{ payment.link | domain }}
+            </span>
+            <div class="by">
+              by
+              <a href="/u/{{ payment.curator.username }}">{{ payment.curator.username }}</a>
+              {{ payment.created_at | ago }} ago |
+              <a class="hide_button">hide</a> |
+              <a>0 comments</a>
+            </div>
+          </div>
+          <div class="amount_wrapper hide">
+            <input type="number" class="amount text_field" min="1" align="right" value="1">
+            <input type="submit" class="amount_submit submit_button">
+          </div>
+        </div>
+      </li>
+    {% endfor %}
+    </ol>
+
+  </div>
+{% endblock %}

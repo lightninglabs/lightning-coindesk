@@ -1,0 +1,281 @@
+a {
+  color: #2562dc;
+  cursor: pointer;
+}
+
+#wrapper {
+  min-width: 600px;
+  max-width: 900px;
+  padding-bottom: 2em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#header {
+  font-weight: bold;
+  padding: 5px 10px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  line-height: 18px;
+  font-size: 16pt;
+}
+
+#headerleft {
+  float: left;
+}
+
+#headerright {
+  float: right;
+  text-align: right;
+}
+
+.clear {
+  clear: both;
+}
+
+#t_holder {
+  background-color: #3b0000;
+  background-position: center;
+  float: left;
+  display: block;
+  width: 16px;
+  height: 16px;
+  padding: 1px;
+  margin-left: 4px;
+  margin-right: 11px;
+  transition: transform 0.25s;
+}
+
+#t_holder:hover {
+  transform: scale(1.25);
+}
+
+.cur_url {
+  color: #333;
+}
+
+.headerlinks a {
+  color: #777;
+  text-decoration: none;
+  padding-right: 0.75em;
+}
+
+.headerlinks a .upvote, .headerlinks a .score {
+  display: inline-block;
+}
+
+#inside {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+}
+
+.posts {
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.post {
+  clear: both;
+}
+
+.post_line {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.votes {
+  float: left;
+  margin-top: 0px;
+  width: 40px;
+}
+
+.upvote {
+  border-color: transparent transparent #bbb transparent;
+  border-style: solid;
+  border-width: 6px;
+  border-bottom-width: 11px;
+  text-decoration: none;
+  width: 0px;
+  height: 0px;
+  margin-bottom: 0px;
+  margin-left: 14px;
+  padding: 0;
+  display: block;
+  transition: transform 0.25s;
+}
+
+.upvote:hover {
+  transform: scale(1.25);
+}
+
+.score {
+  font-size: 11pt;
+  margin-top: 3px;
+  color: #aaa;
+  margin-bottom: -3px;
+  text-align: center;
+}
+
+.details {
+  margin-left: 40px;
+  margin-right: 40px;
+  padding-top: 0.1em;
+}
+
+.link {
+  font-weight: bold;
+  vertical-align: middle;
+  margin-right: 0.25em;
+}
+
+.link a {
+  font-size: 12pt;
+  text-decoration: none;
+}
+
+.link a:visited {
+  color: #7395d9;
+}
+
+.domain {
+  color: #888;
+  font-style: italic;
+  font-size: 10pt;
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+.by {
+  margin-top: 1px;
+  color: #888;
+  font-size: 10pt;
+}
+
+.by a {
+  color: #888;
+  text-decoration: none;
+}
+
+.by a:hover {
+  text-decoration: underline;
+}
+
+.amount_wrapper {
+  margin-left: 40px;
+  margin-top: 0.5em;
+}
+
+input.amount {
+  text-align: right;
+  width: 5em;
+}
+
+input.amount_submit {
+
+}
+
+.text_field {
+  padding: 3px 2px;
+  color: #333;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+  font-size: 10pt;
+}
+
+.submit_button {
+  transition: all 1.5s;
+  color: #333;
+  background-color: #fff;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  padding: 2px 7px;
+  font-size: 10pt;
+  line-height: 1.428571429;
+  border-radius: 2px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#nextpage {
+  margin-top: 1.5em;
+  margin-left: 40px;
+  float: left;
+}
+
+#nextpage a {
+  color: #666;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#login, #buy, #profile {
+  margin-left: 40px;
+}
+
+#login h3 {
+  color: #333;
+  font-weight: bold;
+}
+
+.coinbase_login {
+  color: #fff;
+  padding: 1em 2em;
+  line-height: 0;
+  background-image: linear-gradient(#1d90cb, #0e86c4);
+  border: none;
+  font-size: 10pt;
+  text-transform: uppercase;
+  height: 42px;
+  letter-spacing: 0.05em;
+  border-radius: 2px;
+}
+
+@keyframes fadeInDown {
+   0% {
+      opacity: 0;
+      transform: translateY(-20px);
+   }
+   100% {
+      opacity: 1;
+      transform: translateY(0);
+   }
+}
+
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+}
+
+.animated {
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+}
+
+.delay {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+}
+
+.hide {
+  display: none;
+}
+
+#submit_box {
+  margin-left: 40px;
+}
+
+#submit_box input {
+  display: block;
+  margin-bottom: 0.5em;
+  padding-left: 2px;
+}
