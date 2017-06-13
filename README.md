@@ -3,6 +3,25 @@ A tutorial news app exemplifying Lightning Network micropayments integration.
 
 Features a production-ready configuration for Heroku.
 
+## Setup
+
+Set up your virtual environment
+
+    $ mkdir ln-coindesk && cd ln-coindesk
+    $ virtualenv --python=/usr/bin/python2.7 deskenv
+    $ source deskenv/bin/activate
+
+Run a local instance of the app
+
+    $ git clone https://github.com/MaxFangX/lightning-coindesk
+    $ cd lightning-coindesk
+    $ pip install -r requirements.txt
+
+    $ python manage.py migrate
+    $ python manage.py runserver
+
+View the Lightning Coindesk app at `localhost:8000`
+
 ## Deployment to Heroku
 
     $ git init
