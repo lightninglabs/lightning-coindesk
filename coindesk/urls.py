@@ -18,6 +18,8 @@ from django.contrib import admin
 from coindesk import views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin/?', admin.site.urls),
+    url(r'^login/?', views.login, name='login'),
+    url(r'^verify/$', views.verify, name='verify'),
     url(r'^$', views.index, name='index')
 ]

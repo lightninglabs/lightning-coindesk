@@ -23,14 +23,14 @@
       });
     });
 
-    var onSubmit = function (event) {
-      event.preventDefault();
-      var title = $('#submit_title').val();
-      var link = $('#submit_link').val();
-      window.location.href = '/create-post?title=' + title + '&link=' + link;
-    };
-    $('#submit_button').click(onSubmit);
-    $('#submit_title').bind("enterKey", onSubmit);
-    $('#submit_link').bind("enterKey", onSubmit);
+    // var onSubmit = function (event) {
+    //   event.preventDefault();
+    //   var title = $('#submit_title').val();
+    //   var link = $('#submit_link').val();
+    //   window.location.href = '/create-post?title=' + title + '&link=' + link;
+    // };
+    // $('#submit_button').click(onSubmit);
+    // $('#submit_title').bind("enterKey", onSubmit);
+    // $('#submit_link').bind("enterKey", onSubmit);
   });
 })(jQuery);

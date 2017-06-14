@@ -223,19 +223,6 @@ input.amount_submit {
   font-weight: bold;
 }
 
-.coinbase_login {
-  color: #fff;
-  padding: 1em 2em;
-  line-height: 0;
-  background-image: linear-gradient(#1d90cb, #0e86c4);
-  border: none;
-  font-size: 10pt;
-  text-transform: uppercase;
-  height: 42px;
-  letter-spacing: 0.05em;
-  border-radius: 2px;
-}
-
 @keyframes fadeInDown {
    0% {
       opacity: 0;
@@ -270,12 +257,30 @@ input.amount_submit {
   display: none;
 }
 
-#submit_box {
-  margin-left: 40px;
+.small {
+  font-size: 9pt;
 }
 
 #submit_box input {
   display: block;
   margin-bottom: 0.5em;
-  padding-left: 2px;
+  // padding-left: 2px;
 }
+
+#submit_signature {
+  width: 300px;
+}
+
+.lightning-login input[type=submit] {
+  color: #fff;
+  padding: 1em 2em;
+  line-height: 0;
+  background-image: linear-gradient(#1d90cb, #0e86c4);
+  border: none;
+  font-size: 10pt;
+  text-transform: uppercase;
+  height: 42px;
+  letter-spacing: 0.05em;
+  border-radius: 2px;
+}
+
