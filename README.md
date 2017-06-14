@@ -10,13 +10,13 @@ Set up your virtual environment
     $ mkdir ln-coindesk && cd ln-coindesk
     $ virtualenv --python=/usr/bin/python2.7 deskenv
     $ source deskenv/bin/activate
-
-Run a local instance of the app
-
     $ git clone https://github.com/MaxFangX/lightning-coindesk
     $ cd lightning-coindesk
     $ pip install -r requirements.txt
 
+
+Run your local app!
+    $ python manage.py createsuperuser
     $ python manage.py migrate
     $ python manage.py runserver
 

@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.middleware.csrf import get_token
 from django.shortcuts import render
-from coindesk.models import Article, Payment, Profile
+from coindesk.models import Article, Profile
 
 
 def index(request):
