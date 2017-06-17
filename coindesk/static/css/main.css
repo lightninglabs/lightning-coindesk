@@ -69,17 +69,17 @@ a {
   margin-right: 0.25em;
 }
 
-.posts {
+.articles {
   padding: 0;
   list-style: none;
   margin: 0;
 }
 
-.post {
+.article {
   clear: both;
 }
 
-.post_line {
+.article_line {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
@@ -109,7 +109,7 @@ a {
   transform: scale(1.25);
 }
 
-.score {
+.views {
   font-size: 11pt;
   margin-top: 3px;
   color: #aaa;

@@ -12,12 +12,14 @@
 
     <div id="headerright">
       <span class="headerlinks">
-      {% if lnd_user is not None %}
+      {% if request.user.is_authenticated %}
         <a href="/u/{{ lnd_user.username }}">{{ lnd_user.username }}</a>
+        <!--
         <a href="/buy">
           <span class="upvote"></span>
-          <div class="score">{{ profile.upvote_balance }}</div>
+          <div class="views">{{ profile.upvote_balance }}</div>
         </a>
+        -->
       {% else %}
         <a href="/login" class="login-btn">Login</a>
       {% endif %}
@@ -28,25 +30,29 @@
   </div>
 
   <div id="inside" class="animated fadeInDown delay">
-    <ol class="posts">
-    {% for payment in payments %}
-      <li class="payment">
-        <div class="post_line">
+    <ol class="articles">
+    {% for article in articles %}
+      <li class="article">
+        <div class="article_line">
           <div class="votes">
-            <a class="upvote" data-id="{{ payment.id }}"></a>
-            <div class="score">{{ payment.score }}</div>
+            <a class="upvote" data-id="{{ article.id }}"></a>
+            <div class="views">{{ article.upvotes }}</div>
           </div>
           <div class="details">
             <span class="link">
-              <a href="{{ payment.link }}">{{ payment.title }}</a>
+              <a href="{{ article.link }}">{{ article.title }}</a>
             </span>
             <span class="domain">
-              {{ payment.link | domain }}
+              {{ article.link | domain }}
             </span>
             <div class="by">
+              <!-- For future implementation of upvoting authors
               by
-              <a href="/u/{{ payment.curator.username }}">{{ payment.curator.username }}</a>
-              {{ payment.created_at | ago }} ago |
+              <a href="/u/author">author</a>
+              -->
+
+              {{ article.views }} views |
+              {{ article.created_at | ago }} ago |
               <a class="hide_button">hide</a> |
               <a>0 comments</a>
             </div>

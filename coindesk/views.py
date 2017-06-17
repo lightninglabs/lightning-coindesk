@@ -8,7 +8,7 @@ from coindesk.models import Article, Profile
 
 def index(request):
     articles = Article.objects.all()[:25]
-    articles = sorted(articles, key=lambda p: p.value, reverse=True)
+    articles = sorted(articles, key=lambda p: p.upvotes, reverse=True)
     context = {'articles': articles}
 
     # TODO code to check if the user is authenticated or not.
@@ -19,7 +19,7 @@ def index(request):
 
     if lnd_user is not None:
         context['lnd_user'] = lnd_user
-        context['profile'] = lnd_user.profile
+        context['profile'], _ = Profile.objects.get_or_create(user=lnd_user)
 
     return render(request,
         template_name='index.html',

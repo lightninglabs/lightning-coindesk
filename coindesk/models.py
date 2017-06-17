@@ -49,7 +49,7 @@ class Payment(models.Model):
     )
 
     user = models.ForeignKey(User)
-    article = models.ForeignKey(Article)
+    article = models.ForeignKey(Article, related_name='payments')
     purpose = models.CharField(max_length=10, choices=PAYMENT_PURPOSE_CHOICES)
 
     satoshi_amount = models.IntegerField()

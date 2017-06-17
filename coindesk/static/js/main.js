@@ -1,25 +1,26 @@
+/*jslint devel: true, browser: true, jquery: true */
 (function($) {
   $(document).ready(function () {
-    $('.post').each(function (_, post) {
-      $(post).find('.hide_button').click(function() {
-        $(post).css({ display: 'none' });
+    $('.article').each(function (_, article) {
+      $(article).find('.hide_button').click(function() {
+        $(article).css({ display: 'none' });
       });
 
-      $(post).find('a.upvote').click(function (event) {
+      $(article).find('a.upvote').click(function (event) {
         event.preventDefault();
-        $(post).find('.amount_wrapper').toggle('hide');
+        $(article).find('.amount_wrapper').toggle('hide');
       });
 
-      $(post).find('.amount').bind("enterKey", function (event) {
+      $(article).find('.amount').bind("enterKey", function (event) {
         event.preventDefault();
-        $(post).find('.amount_submit').click();
+        $(article).find('.amount_submit').click();
       });
 
-      $(post).find('.amount_submit').click(function (event) {
+      $(article).find('.amount_submit').click(function (event) {
         event.preventDefault();
-        var amount = $(post).find('.amount').val();
-        var post_id = $(post).find('.upvote').data('id');
-        window.location.href = '/upvote/' + post_id + '?amount=' + amount;
+        var amount = $(article).find('.amount').val();
+        var article_id = $(article).find('.upvote').data('id');
+        window.location.href = '/upvote/' + article_id + '?amount=' + amount;
       });
     });
 
@@ -27,7 +28,7 @@
     //   event.preventDefault();
     //   var title = $('#submit_title').val();
     //   var link = $('#submit_link').val();
-    //   window.location.href = '/create-post?title=' + title + '&link=' + link;
+    //   window.location.href = '/create-article?title=' + title + '&link=' + link;
     // };
     // $('#submit_button').click(onSubmit);
     // $('#submit_title').bind("enterKey", onSubmit);
