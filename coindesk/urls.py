@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^admin/?', admin.site.urls),
     url(r'^login/?', views.login, name='login'),
     url(r'^verify/$', views.verify, name='verify'),
+    url(r'^articles/(?P<pk>[0-9]+)/?$', views.article, name='article'),
     url(r'^$', views.index, name='index')
 ]

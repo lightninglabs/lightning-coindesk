@@ -11,15 +11,8 @@ def index(request):
     articles = sorted(articles, key=lambda p: p.upvotes, reverse=True)
     context = {'articles': articles}
 
-    # TODO code to check if the user is authenticated or not.
     if request.user.is_authenticated():
-        lnd_user = request.user
-    else:
-        lnd_user = None
-
-    if lnd_user is not None:
-        context['lnd_user'] = lnd_user
-        context['profile'], _ = Profile.objects.get_or_create(user=lnd_user)
+        context['profile'], _ = Profile.objects.get_or_create(user=request.user)
 
     return render(request,
         template_name='index.html',
@@ -50,6 +43,19 @@ def profile(request, username):
     return render(request,
         template_name='profile.html',
         context = {'user': request.user, 'profile': _profile})
+
+
+def article(request, pk):
+    try:
+        article = Article.objects.filter(status='visible').get(id=pk)
+    except Article.DoesNotExist:
+        raise Exception("Article with id {} does not exist or is not visible".format(pk))
+
+    context = {'article': article}
+
+    return render(request,
+        template_name='article.html',
+        context=context)
 
 
 def pay_for_view(request, pk):

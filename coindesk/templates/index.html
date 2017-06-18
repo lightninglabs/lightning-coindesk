@@ -2,32 +2,6 @@
 {% load filters %}
 
 {% block content %}
-  <div id="header" class="animated fadeInDown">
-    <div id="headerleft">
-      <a id="t_holder" href="/"></a>
-      <span class="headerlinks">
-        <a href="/" class="cur_url">Lightning CoinDesk</a>
-      </span>
-    </div>
-
-    <div id="headerright">
-      <span class="headerlinks">
-      {% if request.user.is_authenticated %}
-        <a href="/u/{{ lnd_user.username }}">{{ lnd_user.username }}</a>
-        <!--
-        <a href="/buy">
-          <span class="upvote"></span>
-          <div class="views">{{ profile.upvote_balance }}</div>
-        </a>
-        -->
-      {% else %}
-        <a href="/login" class="login-btn">Login</a>
-      {% endif %}
-      </span>
-    </div>
-
-    <div class="clear"></div>
-  </div>
 
   <div id="inside" class="animated fadeInDown delay">
     <ol class="articles">
@@ -40,10 +14,7 @@
           </div>
           <div class="details">
             <span class="link">
-              <a href="{{ article.link }}">{{ article.title }}</a>
-            </span>
-            <span class="domain">
-              {{ article.link | domain }}
+              <a href="/articles/{{ article.id }}/">{{ article.title }}</a>
             </span>
             <div class="by">
               <!-- For future implementation of upvoting authors
