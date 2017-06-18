@@ -10,7 +10,7 @@
         <div class="article_line">
           <div class="votes">
             <a class="upvote" data-id="{{ article.id }}"></a>
-            <div class="views">{{ article.upvotes }}</div>
+            <div class="score">{{ article.upvotes }}</div>
           </div>
           <div class="details">
             <span class="link">
@@ -21,7 +21,6 @@
               by
               <a href="/u/author">author</a>
               -->
-
               {{ article.views }} views |
               {{ article.created_at | ago }} ago |
               <a class="hide_button">hide</a> |

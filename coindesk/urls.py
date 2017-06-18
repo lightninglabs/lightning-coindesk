@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^login/?', views.login, name='login'),
     url(r'^verify/$', views.verify, name='verify'),
     url(r'^articles/(?P<pk>[0-9]+)/?$', views.article, name='article'),
+    url(r'^upvote/(?P<pk>[0-9]+)/?$', views.upvote, name='upvote'),
     url(r'^$', views.index, name='index')
 ]

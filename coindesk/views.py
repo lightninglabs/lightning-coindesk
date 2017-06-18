@@ -70,6 +70,10 @@ def pay_for_view(request, pk):
 def upvote(request, pk):
     # TODO implement payments
 
+    article = Article.objects.get(id=pk)
+    amount = int(request.GET.get('amount', 0))
+    article.upvote(request.user, amount)
+
     if not request.user.is_authenticated():
         raise Exception("Must be logged in to upvote")
 
