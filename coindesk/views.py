@@ -46,12 +46,37 @@ def profile(request, username):
 
 
 def article(request, pk):
+
+    if not request.user.is_authenticated():
+        raise Exception("You must be logged in to view an article!")
+
     try:
         article = Article.objects.filter(status='visible').get(id=pk)
     except Article.DoesNotExist:
         raise Exception("Article with id {} does not exist or is not visible".format(pk))
 
     context = {'article': article}
+
+    qs = article.payments.filter(user=request.user, purpose='view')
+    if qs.count() == 0:
+        payment_status = None
+    elif qs.count() == 1:
+        payment_status = qs.last().status
+        if payment_status == 'error':
+            # TODO Implement some kind of error resolution
+            pass
+            raise Exception("Payment error")
+        elif payment_status == 'pending_invoice':
+            # This should not happen because invoice generation should happen immediately
+            raise Exception("Invoice not generated for view")
+        else:
+            context['payment_status'] = payment_status
+    else:
+        # This should not happen because there should never be more than one view payment per article per person
+        raise Exception("Multiple payment")
+
+    # TODO Remove this when payments is fully integrated
+    context['payment_status'] = 'complete'
 
     return render(request,
         template_name='article.html',
