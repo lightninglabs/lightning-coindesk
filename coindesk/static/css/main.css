@@ -117,7 +117,7 @@ a {
   text-align: center;
 }
 
-.details {
+.details, .article-body {
   margin-left: 40px;
   margin-right: 40px;
   padding-top: 0.1em;

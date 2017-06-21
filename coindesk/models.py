@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 from django.contrib import admin
 
 import grpc
-import sys
 
 
 class Profile(models.Model):
@@ -71,20 +70,42 @@ class Payment(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
     def generate_invoice(self, user, article):
+        """
+        Generates a new invoice
+        """
         assert self.status == 'pending_invoice', "Already generated invoice"
         channel = grpc.insecure_channel(settings.LND_RPCHOST)
         stub = lnrpc.LightningStub(channel)
-        try:
-            invoice_response = stub.AddInvoice(ln.Invoice(value=1000, memo="User '{}' | ArticleId {}".format(user.username, article.id)))
-            # Have to decode with ancient MS-DOS codec since it's the only one that works with random bytestrings
-            self.r_hash = invoice_response.r_hash.decode('cp437')
-            self.payment_request = invoice_response.payment_request
-            self.status = 'pending_payment'
-            self.save()
-        except Exception:
-            t, v, tb = sys.exc_info()
-            raise t, v, tb
 
+        add_invoice_resp = stub.AddInvoice(ln.Invoice(value=1000, memo="User '{}' | ArticleId {}".format(user.username, article.id)))
+        # Have to decode with ancient MS-DOS codec since it's the only one that works with random bytestrings
+        self.r_hash = add_invoice_resp.r_hash.decode('cp437')
+        self.payment_request = add_invoice_resp.payment_request
+        self.status = 'pending_payment'
+        self.save()
+
+    def check_payment(self):
+        """
+        Checks if the Lightning payment has been received for this invoice
+        """
+        if self.status == 'pending_invoice':
+            return False
+
+        channel = grpc.insecure_channel(settings.LND_RPCHOST)
+        stub = lnrpc.LightningStub(channel)
+
+        # Have to encode with ancient MS-DOS codec since it's the only one that works with random bytestrings
+        r_hash_bytes = self.r_hash.encode('cp437')
+        invoice_resp = stub.LookupInvoice(ln.PaymentHash(r_hash=r_hash_bytes))
+
+        if invoice_resp.settled:
+            # Payment complete
+            self.status = 'complete'
+            self.save()
+            return True
+        else:
+            # Payment not received
+            return False
 
 admin.site.register(Profile)
 admin.site.register(Payment)

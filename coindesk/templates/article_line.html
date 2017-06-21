@@ -1,0 +1,27 @@
+{% load filters %}
+<div class="article_line">
+  <div class="votes">
+    <a class="upvote" data-id="{{ article.id }}"></a>
+    <div class="score">{{ article.score }}</div>
+  </div>
+  <div class="details">
+    <span class="link">
+      <a href="/articles/{{ article.id }}/">{{ article.title }}</a>
+    </span>
+    <div class="by">
+      <!-- For future implementation of upvoting authors
+      by
+      <a href="/u/author">author</a>
+      -->
+
+      {{ article.views }} views |
+      {{ article.created_at | ago }} ago |
+      <a class="hide_button">hide</a> |
+      <a>0 comments</a>
+    </div>
+  </div>
+  <div class="amount_wrapper hide">
+    <input type="number" class="amount text_field" min="1" align="right" value="1">
+    <input type="submit" class="amount_submit submit_button">
+  </div>
+</div>
