@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.models import User
+from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.middleware.csrf import get_token
 from django.shortcuts import render
-from coindesk.models import Article, Profile
+from coindesk.models import Article, Profile, Payment
 
 
 def index(request):
@@ -58,38 +59,45 @@ def article(request, pk):
     context = {'article': article}
 
     qs = article.payments.filter(user=request.user, purpose='view')
+
     if qs.count() == 0:
-        payment_status = None
+        # Generate a new payment
+        payment = Payment.objects.get_or_create(user=request.user,
+                          article=article,
+                          purpose='view',
+                          satoshi_amount=settings.MIN_VIEW_AMOUNT,
+                          status='pending_invoice')
+        payment.save()
     elif qs.count() == 1:
-        payment_status = qs.last().status
-        if payment_status == 'error':
-            # TODO Implement some kind of error resolution
-            pass
-            raise Exception("Payment error")
-        elif payment_status == 'pending_invoice':
-            # This should not happen because invoice generation should happen immediately
-            raise Exception("Invoice not generated for view")
-        else:
-            context['payment_status'] = payment_status
+        payment = qs.last()
     else:
         # This should not happen because there should never be more than one view payment per article per person
-        raise Exception("Multiple payment")
+        raise Exception("Multiple payments detected")
 
-    # TODO Remove this when payments is fully integrated
-    context['payment_status'] = 'complete'
+    context['payment'] = payment
+
+    # User client requests that we check if the payment has been made
+    if request.GET.get('check'):
+        print "Checking for payment {}".format(payment.payment_request)
+
+    if payment.status == 'pending_invoice':
+        payment.generate_invoice(request.user, article)
+    elif payment.status == 'pending_payment':
+        # Do nothing; display the payment page to user
+        pass
+    elif payment.status == 'complete':
+        # Do nothing; display the article to user
+        pass
+    elif payment.status == 'error':
+        # TODO Optionally implement some kind of error resolution
+        pass
+        raise Exception("Payment error")
+    else:
+        context['payment_status'] = payment.status
 
     return render(request,
         template_name='article.html',
         context=context)
-
-
-def pay_for_view(request, pk):
-    # TODO implement payments
-
-    if not request.user.is_authenticated():
-        raise Exception("Must be logged in to make payment")
-
-    return HttpResponseRedirect("/")
 
 
 def upvote(request, pk):

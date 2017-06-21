@@ -1,23 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div id="header">
-    <div id="headerleft">
-      <a id="t_holder" href="/"></a>
-      <span class="headerlinks">
-        <a href="/" class="cur_url">Lightning CoinDesk</a>
-      </span>
-    </div>
-
-    <div class="clear"></div>
-  </div>
-
   <div id="inside">
-    <div id="login" class="lightning-login">
+    <div id="login" class="ln-dialog">
       <form id="submit_box" action="/verify/" method="post"
             class="animated fadeInDown delay">
         {% csrf_token %}
-        <h3 class="login_title">Login</h3>
+        <h3>Login</h3>
         <p>To log in, simply sign this generated message with LND to prove your identity:</p>
         <p class="small">{{ csrf_token }}</p>
         <input type="text" id="submit_signature" class="text_field" placeholder="Paste signature here"><br>

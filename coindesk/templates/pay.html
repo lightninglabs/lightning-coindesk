@@ -1,11 +1,8 @@
-<div id="payment" class="lightning-login">
-  <form id="submit_box" action="/pay/" method="post"
-        class="animated fadeInDown delay">
-    {% csrf_token %}
-    <h3 class="login_title">Make Payment</h3>
-    <p>To view this article, please make a payment to the payment hash below:</p>
-    <p class="small">[payment hash]</p>
-    <input type="text" id="submit_signature" class="text_field" placeholder="Paste signature here"><br>
-    <input type="submit" value="Check for payment"></input>
-  </form>
+<div id="payment" class="ln-dialog">
+  <div id="submit_box" class="animated fadeInDown delay">
+    <h3>Make Payment</h3>
+    <p>To view this article, please pay the request below:</p>
+    <p class="small">{{ payment.payment_request }}</p><br>
+    <a id="complete_button" href="/articles/{{ article.id }}/?check=true">Complete</a>
+  </div>
 </div>

@@ -268,7 +268,7 @@ input.amount_submit {
   width: 300px;
 }
 
-.lightning-login input[type=submit] {
+ {
   color: #fff;
   padding: 1em 2em;
   line-height: 0;
@@ -281,3 +281,15 @@ input.amount_submit {
   border-radius: 2px;
 }
 
+.ln-dialog input[type=submit], #complete_button {
+  color: #fff;
+  padding: 1em 2em;
+  line-height: 0;
+  background-image: linear-gradient(#1d90cb, #0e86c4);
+  border: none;
+  font-size: 10pt;
+  text-transform: uppercase;
+  height: 42px;
+  letter-spacing: 0.05em;
+  border-radius: 2px;
+}
