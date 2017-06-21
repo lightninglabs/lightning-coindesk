@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib import admin
 
+import codecs
 import grpc
 
 
@@ -78,8 +79,8 @@ class Payment(models.Model):
         stub = lnrpc.LightningStub(channel)
 
         add_invoice_resp = stub.AddInvoice(ln.Invoice(value=1000, memo="User '{}' | ArticleId {}".format(user.username, article.id)))
-        # Have to decode with ancient MS-DOS codec since it's the only one that works with random bytestrings
-        self.r_hash = add_invoice_resp.r_hash.decode('cp437')
+        r_hash_base64 = codecs.encode(add_invoice_resp.r_hash, 'base64')
+        self.r_hash = r_hash_base64.decode('utf-8')
         self.payment_request = add_invoice_resp.payment_request
         self.status = 'pending_payment'
         self.save()
@@ -94,8 +95,8 @@ class Payment(models.Model):
         channel = grpc.insecure_channel(settings.LND_RPCHOST)
         stub = lnrpc.LightningStub(channel)
 
-        # Have to encode with ancient MS-DOS codec since it's the only one that works with random bytestrings
-        r_hash_bytes = self.r_hash.encode('cp437')
+        r_hash_base64 = self.r_hash.encode('utf-8')
+        r_hash_bytes = codecs.decode(r_hash_base64)
         invoice_resp = stub.LookupInvoice(ln.PaymentHash(r_hash=r_hash_bytes))
 
         if invoice_resp.settled:
