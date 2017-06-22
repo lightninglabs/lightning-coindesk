@@ -13,7 +13,6 @@ class Profile(models.Model):
     user = models.OneToOneField(User)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
-    handle = models.CharField(max_length=30)
     identity_pubkey = models.CharField(max_length=80, unique=True)
     # bitcoin_address = BitcoinAddressField()
 
@@ -34,14 +33,14 @@ class Article(models.Model):
         return self.payments.filter(status='complete', purpose='view').count()
 
     def upvotes(self):
+        raise NotImplementedError()
         return self.payments.filter(status='complete', purpose='upvote').count()
 
     def __str__(self):
         return "({}) '{}'".format(self.id, self.title)
 
     def upvote(self, upvoter, amount):
-        # TODO Implement
-        pass
+        raise NotImplementedError()
 
 
 class Payment(models.Model):
@@ -96,7 +95,7 @@ class Payment(models.Model):
         stub = lnrpc.LightningStub(channel)
 
         r_hash_base64 = self.r_hash.encode('utf-8')
-        r_hash_bytes = codecs.decode(r_hash_base64)
+        r_hash_bytes = str(codecs.decode(r_hash_base64, 'base64'))
         invoice_resp = stub.LookupInvoice(ln.PaymentHash(r_hash=r_hash_bytes))
 
         if invoice_resp.settled:

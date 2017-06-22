@@ -27,7 +27,7 @@
         <div id="headerright">
           <span class="headerlinks">
           {% if request.user.is_authenticated %}
-            <a href="/u/{{ lnd_user.username }}">{{ lnd_user.username }}</a>
+            <a id="username_display" href="/logout">{{ user.username }}</a>
             <!--
             <a href="/buy">
               <span class="upvote"></span>

@@ -24,6 +24,20 @@
       });
     });
 
+    // Show the text "Log out" on hover
+    $('#username_display').hover(
+      function() {
+        var $this = $(this); // caching $(this)
+        $this.data('initialText', $this.text());
+        $this.text("Log out");
+      },
+      function() {
+        var $this = $(this); // caching $(this)
+        $this.text($this.data('initialText'));
+      }
+    );
+
+
     // var onSubmit = function (event) {
     //   event.preventDefault();
     //   var title = $('#submit_title').val();

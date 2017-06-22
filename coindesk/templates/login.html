@@ -9,7 +9,9 @@
         <h3>Login</h3>
         <p>To log in, simply sign this generated message with LND to prove your identity:</p>
         <p class="small">{{ csrf_token }}</p>
-        <input type="text" id="submit_signature" class="text_field" placeholder="Paste signature here"><br>
+        <input type="text" id="login_signature" name="login_signature" class="text_field" placeholder="Paste signature here">
+        <p>(Optional) If this is your first time logging in, please provide your desired username:</p>
+        <input type="text" id="login_username" name="login_username" class="text" placeholder="Desired username"><br>
         <input type="submit" value="Login With Lightning"></input>
       </form>
     </div>

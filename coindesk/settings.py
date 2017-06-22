@@ -56,6 +56,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTHENTICATION_BACKENDS = ['coindesk.auth_backends.SignatureBackend']
+
 ROOT_URLCONF = 'coindesk.urls'
 
 TEMPLATES = [

@@ -1,10 +1,9 @@
-from django.contrib.auth.decorators import login_required
-# from django.contrib.auth.models import User
+from coindesk.models import Article, Profile, Payment
 from django.conf import settings
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.middleware.csrf import get_token
 from django.shortcuts import render
-from coindesk.models import Article, Profile, Payment
 
 
 def index(request):
@@ -20,7 +19,7 @@ def index(request):
         context=context)
 
 
-def login(request):
+def login_view(request):
     # Repurpose the CSRF token as the message the user needs to sign
     csrf_token = get_token(request)
     context = {'csrf_token': csrf_token}
@@ -29,21 +28,27 @@ def login(request):
             context=context)
 
 
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect("/")
+
+
 def verify(request):
 
-    # TODO Verify signature
+    assert 'login_signature' in request.POST, "No signature supplied"
+    kwargs = {
+        'username': request.POST.get('login_username'),
+        'signature': request.POST.get('login_signature'),
+        'csrf_token': str(request.POST.get('csrfmiddlewaretoken'))
+    }
 
-    return render(request,
-        template_name='index.html',
-        context={})
-
-
-@login_required
-def profile(request, username):
-    _profile = Profile.objects.get(user=request.user)
-    return render(request,
-        template_name='profile.html',
-        context = {'user': request.user, 'profile': _profile})
+    user = authenticate(request=request, **kwargs)
+    if user is None:
+        raise Exception("Failed to log in")
+        # return HttpResponseRedirect('/login')
+    else:
+        login(request, user)
+        return HttpResponseRedirect("/")
 
 
 def article(request, pk):
