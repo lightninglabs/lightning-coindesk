@@ -29,9 +29,11 @@ class Article(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=50, default='visible', choices=ARTICLE_STATUS_CHOICES)
 
+    @property
     def views(self):
         return self.payments.filter(status='complete', purpose='view').count()
 
+    @property
     def upvotes(self):
         raise NotImplementedError()
         return self.payments.filter(status='complete', purpose='upvote').count()

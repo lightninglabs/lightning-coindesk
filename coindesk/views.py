@@ -8,7 +8,7 @@ from django.shortcuts import render
 
 def index(request):
     articles = Article.objects.all()[:25]
-    articles = sorted(articles, key=lambda p: p.upvotes, reverse=True)
+    articles = sorted(articles, key=lambda p: p.views, reverse=True)
     context = {'articles': articles}
 
     if request.user.is_authenticated():
@@ -53,15 +53,17 @@ def verify(request):
 
 def article(request, pk):
 
-    if not request.user.is_authenticated():
-        raise Exception("You must be logged in to view an article!")
-
     try:
         article = Article.objects.filter(status='visible').get(id=pk)
     except Article.DoesNotExist:
         raise Exception("Article with id {} does not exist or is not visible".format(pk))
 
     context = {'article': article}
+
+    if not request.user.is_authenticated():
+        return render(request,
+            template_name='article.html',
+            context=context)
 
     qs = article.payments.filter(user=request.user, purpose='view')
 

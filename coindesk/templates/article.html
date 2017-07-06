@@ -7,7 +7,14 @@
       <li class="article">
         {% include "article_line.html" %}
         <div class="article-body">
-          {% if payment.status == "complete" %}
+          {% if not request.user.is_authenticated %}
+          <h3>Make Payment</h3>
+          <p>
+            To view this article, please log in and return to this page to make
+            a payment.
+          </p>
+          <a id="complete_button" href="/login">Log in</a>
+          {% elif payment.status == "complete" %}
           <div class="article-text">
             {{ article.text }}
           </div>
