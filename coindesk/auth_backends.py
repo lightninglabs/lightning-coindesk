@@ -1,14 +1,12 @@
-from coindesk import rpc_pb2 as ln, rpc_pb2_grpc as lnrpc
 from coindesk.models import Profile
 from django.conf import settings
 from django.contrib.auth.models import User
-
-import grpc
 
 
 class SignatureBackend(object):
 
     def authenticate(self, request, signature, csrf_token, username=None):
+
         channel = grpc.insecure_channel(settings.LND_RPCHOST)
         stub = lnrpc.LightningStub(channel)
 
