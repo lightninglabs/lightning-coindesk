@@ -1,6 +1,9 @@
+from coindesk import rpc_pb2 as ln, rpc_pb2_grpc as lnrpc
 from coindesk.models import Profile
 from django.conf import settings
 from django.contrib.auth.models import User
+
+import grpc
 
 
 class SignatureBackend(object):
