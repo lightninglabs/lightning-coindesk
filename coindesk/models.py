@@ -79,7 +79,7 @@ class Payment(models.Model):
         channel = grpc.insecure_channel(settings.LND_RPCHOST)
         stub = lnrpc.LightningStub(channel)
 
-        add_invoice_resp = stub.AddInvoice(ln.Invoice(value=1000, memo="User '{}' | ArticleId {}".format(user.username, article.id)))
+        add_invoice_resp = stub.AddInvoice(ln.Invoice(value=settings.MIN_VIEW_AMOUNT, memo="User '{}' | ArticleId {}".format(user.username, article.id)))
         r_hash_base64 = codecs.encode(add_invoice_resp.r_hash, 'base64')
         self.r_hash = r_hash_base64.decode('utf-8')
         self.payment_request = add_invoice_resp.payment_request
