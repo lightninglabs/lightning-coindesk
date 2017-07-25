@@ -57,8 +57,8 @@ MIDDLEWARE = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend', # For admin user
-    'coindesk.auth_backends.SignatureBackend', # For LND users
+    'django.contrib.auth.backends.ModelBackend',  # For admin user
+    'coindesk.auth_backends.SignatureBackend',  # For LND users
 ]
 
 ROOT_URLCONF = 'coindesk.urls'
