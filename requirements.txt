@@ -1,10 +1,13 @@
 Babel==2.4.0
 beautifulsoup4==4.6.0
 Django==1.11.1
+enum34==1.1.6
+futures==3.1.1
 gevent==1.2.2
 googleapis-common-protos==1.5.2
 greenlet==0.4.12
-grpc==0.3.post19
+grpcio==1.4.0
+grpcio-tools==1.4.0
 gunicorn==19.6.0
 httplib2==0.10.3
 msgpack-python==0.4.8
