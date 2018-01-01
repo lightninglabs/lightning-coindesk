@@ -25,7 +25,7 @@ CERT_PATH = None
 if platform.system() == "Darwin":
     CERT_PATH = os.path.join(os.getenv('HOME'), 'Library/Application Support/Lnd/tls.cert')
 elif platform.system() == "Linux":
-    CERT_PATH = os.path.join(os.getenv('HOME'), 'Lnd/tls.cert')
+    CERT_PATH = os.path.join(os.getenv('HOME'), '.lnd/tls.cert')
 elif platform.system() == "Windows":
     CERT_PATH = os.path.join(os.getenv('APPDATA'), 'Local', 'Lnd', 'tls.cert')
 
