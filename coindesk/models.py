@@ -76,7 +76,8 @@ class Payment(models.Model):
         Generates a new invoice
         """
         assert self.status == 'pending_invoice', "Already generated invoice"
-        channel = grpc.insecure_channel(settings.LND_RPCHOST)
+        creds = grpc.ssl_channel_credentials(open(settings.CERT_PATH).read())
+        channel = grpc.secure_channel(settings.LND_RPCHOST, creds)
         stub = lnrpc.LightningStub(channel)
 
         add_invoice_resp = stub.AddInvoice(ln.Invoice(value=settings.MIN_VIEW_AMOUNT, memo="User '{}' | ArticleId {}".format(user.username, article.id)))
@@ -93,7 +94,8 @@ class Payment(models.Model):
         if self.status == 'pending_invoice':
             return False
 
-        channel = grpc.insecure_channel(settings.LND_RPCHOST)
+        creds = grpc.ssl_channel_credentials(open(settings.CERT_PATH).read())
+        channel = grpc.secure_channel(settings.LND_RPCHOST, creds)
         stub = lnrpc.LightningStub(channel)
 
         r_hash_base64 = self.r_hash.encode('utf-8')

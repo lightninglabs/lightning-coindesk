@@ -9,6 +9,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
+import platform
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -18,6 +19,15 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 LND_RPCHOST = "localhost:10002"
 MIN_VIEW_AMOUNT = 1000
 MIN_UPVOTE_AMOUNT = 1000
+
+# Point to the TLS certification file to initiate secure connections
+CERT_PATH = None
+if platform.system() == "Darwin":
+    CERT_PATH = os.path.join(os.getenv('HOME'), 'Library/Application Support/Lnd/tls.cert')
+elif platform.system() == "Linux":
+    CERT_PATH = os.path.join(os.getenv('HOME'), '.lnd/tls.cert')
+elif platform.system() == "Windows":
+    CERT_PATH = os.path.join(os.getenv('APPDATA'), 'Local', 'Lnd', 'tls.cert')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/

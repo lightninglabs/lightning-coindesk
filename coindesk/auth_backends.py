@@ -9,7 +9,8 @@ import grpc
 class SignatureBackend(object):
 
     def authenticate(self, request, signature, csrf_token, username=None):
-        channel = grpc.insecure_channel(settings.LND_RPCHOST)
+        creds = grpc.ssl_channel_credentials(open(settings.CERT_PATH).read())
+        channel = grpc.secure_channel(settings.LND_RPCHOST, creds)
         stub = lnrpc.LightningStub(channel)
 
         verifymessage_resp = stub.VerifyMessage(ln.VerifyMessageRequest(msg=csrf_token, signature=signature))
