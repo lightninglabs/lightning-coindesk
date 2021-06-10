@@ -1,6 +1,6 @@
 Babel==2.4.0
 beautifulsoup4==4.6.0
-Django==1.11.1
+Django==2.2.24
 enum34==1.1.6
 futures==3.1.1
 gevent==1.2.2
