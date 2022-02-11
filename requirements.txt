@@ -12,7 +12,7 @@ gunicorn==19.6.0
 httplib2==0.10.3
 msgpack-python==0.4.8
 oauth2client==4.1.2
-protobuf==3.4.0
+protobuf==3.15.0
 pyasn1==0.3.2
 pyasn1-modules==0.0.11
 pytz==2017.2
